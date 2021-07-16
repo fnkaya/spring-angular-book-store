@@ -1,6 +1,4 @@
-# BOOK STORE WEB APPLICATION
-
-<a href="https://github.com/fnkaya/spring-boot-book-store">Backend >>></a>
+# Book Store Web Application
 
 ### USER PAGE
 
