@@ -1,0 +1,103 @@
+
+  <div class="mb-3">
+    <button mat-raised-button type="button" (click)="openModal(templateInsert)">
+      New Book <i class="fas fa-plus-circle ml-2"></i>
+    </button>
+    <input #searchInput class="searchInput" type="text" placeholder="Search book"
+      (keyup.enter)="searchBooks(searchInput.value)"/>
+  </div>
+
+  <ngx-datatable class="material w-100"
+                 [rows]="rows"
+                 [columns]="cols"
+                 [columnMode]="'force'"
+                 [headerHeight]="50"
+                 [rowHeight]="'auto'"
+                 [footerHeight]="50"
+                 [externalPaging]="true"
+                 [count]="page.totalElements"
+                 [offset]="page.page"
+                 [limit]="page.size"
+                 (page)="setPage($event)">
+  </ngx-datatable>
+
+  <ng-template #templatePrice let-value="value" ngx-datatable-cell-template>
+    {{value | currency: '₺'}}
+  </ng-template>
+  <ng-template #templateActionsCell let-row="row" let-value="value">
+    <a class="pointer" (click)="showDeleteConfirm(value)">
+      <i class="fas fa-trash-alt text-danger"></i>
+    </a>
+    <a class="pointer" routerLink="/admin/book/{{value}}">
+      <i class="far fa-edit ml-3"></i>
+    </a>
+  </ng-template>
+
+
+  <ng-template #templateInsert>
+    <div class="modal-header">
+      <h2 class="modal-title">Insert Book</h2>
+<!--      <button type="button" class="close" aria-label="Close" (click)="modalRef.hide()">-->
+<!--        <span aria-hidden="true">&times;</span>-->
+<!--      </button>-->
+    </div>
+    <div class="modal-body">
+      <form [formGroup]="bookForm" (ngSubmit)="saveBook()">
+        <div class="form-group">
+          <input placeholder="Book Name" type="text" formControlName="name" class="form-control" [ngClass]="{'is-invalid': formControls.name.errors && (formControls.name.touched || formControls.name.dirty)}">
+          <div *ngIf="formControls.name.errors && (formControls.name.touched || formControls.name.dirty)" class="invalid-feedback">
+            <span *ngIf="formControls.name.errors.required">Book name is required</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <input placeholder="Author Name" type="text" formControlName="author" class="form-control" [ngClass]="{'is-invalid': formControls.author.errors && (formControls.author.touched || formControls.author.dirty)}">
+          <div *ngIf="formControls.author.errors && (formControls.author.touched || formControls.author.dirty)" class="invalid-feedback">
+            <div *ngIf="formControls.author.errors.required">Author name is required</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <input placeholder="Description" type="text" formControlName="description" class="form-control" [ngClass]="{'is-invalid': formControls.description.errors && (formControls.description.touched || formControls.description.dirty)}">
+          <div *ngIf="formControls.description.errors && (formControls.description.touched || formControls.description.dirty)" class="invalid-feedback">
+            <div *ngIf="formControls.description.errors.required">Description is required</div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <input placeholder="Unit Price" type="number" formControlName="unitPrice" class="form-control" [ngClass]="{'is-invalid': formControls.unitPrice.errors && (formControls.unitPrice.touched || formControls.unitPrice.dirty)}">
+            <div *ngIf="formControls.unitPrice.errors && (formControls.unitPrice.touched || formControls.unitPrice.dirty)" class="invalid-feedback">
+              <div *ngIf="formControls.unitPrice.errors.required">Price is required</div>
+            </div>
+          </div>
+          <div class="col">
+            <input placeholder="Units in Stock" type="number" formControlName="unitsInStock" class="form-control" [ngClass]="{'is-invalid': formControls.unitsInStock.errors && (formControls.unitsInStock.touched || formControls.unitsInStock.dirty)}">
+            <div *ngIf="formControls.unitsInStock.errors && (formControls.unitsInStock.touched || formControls.unitsInStock.dirty)" class="invalid-feedback">
+              <div *ngIf="formControls.unitsInStock.errors.required">Stock is required</div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group mt-3">
+          <select formControlName="category" class="form-control" [ngClass]="{'is-invalid': formControls.category.errors && (formControls.category.touched || formControls.category.dirty)}">
+            <option [value]="null" [disabled]="true" [hidden]="true">Select Category</option>
+            <option *ngFor="let category of categories" [ngValue]="category" >{{category.name}}</option>
+          </select>
+          <div *ngIf="formControls.category.errors && (formControls.category.touched || formControls.category.dirty)" class="invalid-feedback">
+            <div *ngIf="formControls.category.errors.required">Category is required</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="badge">Select file to upload</label>
+          <input type="file" formControlName="imageUrl" accept="image/*" class="form-control" (change)="onFileSelected($event)" [ngClass]="{'is-invalid': formControls.imageUrl.errors && (formControls.imageUrl.touched || formControls.imageUrl.dirty)}">
+          <div *ngIf="formControls.imageUrl.errors && (formControls.imageUrl.touched || formControls.imageUrl.dirty)" class="invalid-feedback">
+            <div *ngIf="formControls.imageUrl.errors.required">Book image is required</div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
+          <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+      </form>
+    </div>
+  </ng-template>
+
+
+

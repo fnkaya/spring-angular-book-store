@@ -1,0 +1,29 @@
+
+      <div class="row shadow p-3">
+        <div class="col-4">
+          <div class="thumbnail">
+            <img src="{{book.imageUrl}}" width="250" height="300" alt="">
+          </div>
+        </div>
+        <div class="col-7 ml-5">
+          <h1>{{book.name}}</h1>
+          <hr>
+          <h3>Author: {{book.author}}</h3>
+          <hr>
+          <h3>Qty. Available: {{book.unitsInStock}}</h3>
+          <hr>
+          <h3>Price: <strong>{{book.unitPrice | currency: '₺'}}</strong></h3>
+          <hr>
+          <br>
+          <a routerLink="/" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> {{back}}
+          </a>
+          <button class="btn btn-primary ml-1" (click)="addToCart()">
+            <i class="fas fa-cart-arrow-down"></i> {{add_to_cart}}
+          </button>
+        </div>
+      </div>
+      <div class="mt-5 p-3 text-break">
+          {{book.description}}
+      </div>
+

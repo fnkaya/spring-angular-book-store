@@ -1,0 +1,85 @@
+<div class="mb-3">
+  <button mat-raised-button type="button" (click)="openModal(templateInsert)">
+    Create Admin Account <i class="fas fa-user-cog ml-2"></i>
+  </button>
+
+    <input #searchInput class="searchInput" type="text" placeholder="Search user"
+           (keyup.enter)="searchUser(searchInput.value)"/>
+
+  <button mat-raised-button class="float-right px-2" routerLink="/admin/user">
+    Clear <i class="fas fa-filter ml-1"></i>
+  </button>
+</div>
+
+
+
+<ngx-datatable class="material w-100"
+               [rows]="books"
+               [columnMode]="'force'"
+               [headerHeight]="50"
+               [rowHeight]="'auto'"
+               [footerHeight]="50"
+               [sorts]="[{ prop: 'admin', dir: 'desc' }]"
+               [externalPaging]="true"
+               [count]="page.totalElements"
+               [offset]="page.page"
+               [limit]="page.size"
+               (page)="setPage($event)">
+  <ngx-datatable-column prop="name" name="Name"></ngx-datatable-column>
+  <ngx-datatable-column prop="username" name="Username"></ngx-datatable-column>
+  <ngx-datatable-column prop="email" name="E-Mail"></ngx-datatable-column>
+  <ngx-datatable-column prop="admin" name="Role" [cellTemplate]="roleTemplate"></ngx-datatable-column>
+</ngx-datatable>
+
+<ng-template #roleTemplate let-row="row" let-value="value">
+  <i *ngIf="value === true" class="fas fa-user-cog text-danger"></i>
+  <i *ngIf="value === false" class="fas fa-user text-muted"></i>
+</ng-template>
+
+
+
+<ng-template #templateInsert>
+  <div class="modal-header">
+    <h2 class="modal-title">Create Admin Account</h2>
+<!--    <button type="button" class="close" aria-label="Close" (click)="modalRef.hide()">-->
+<!--      <span aria-hidden="true">&times;</span>-->
+<!--    </button>-->
+  </div>
+  <div class="modal-body">
+    <form  [formGroup]="userForm" (ngSubmit)="createAccount()">
+      <div class="form-group">
+        <label >Username</label>
+        <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': f.username.errors && (f.username.touched || f.username.dirty) }" />
+        <div *ngIf="f.username.errors &&  (f.username.touched || f.username.dirty)" class="invalid-feedback">
+          <div *ngIf="f.username.errors.required">Username is required</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': f.password.errors && (f.password.touched || f.password.dirty) }" />
+        <div *ngIf="f.password.errors && (f.password.touched || f.password.dirty)" class="invalid-feedback">
+          <div *ngIf="f.password.errors.required">Password is required</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Name Surname</label>
+        <input type="text" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': f.name.errors && (f.name.touched || f.name.dirty) }" />
+        <div *ngIf="f.name.errors && (f.name.touched || f.name.dirty)" class="invalid-feedback">
+          <div *ngIf="f.name.errors.required">Name is required</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': f.email.errors && (f.email.touched || f.email.dirty) }" />
+        <div *ngIf="f.email.errors && (f.email.touched || f.email.dirty)" class="invalid-feedback">
+          <div *ngIf="f.email.errors.required">Email is required</div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
+        <button type="submit" class="btn btn-primary">Create Account</button>
+      </div>
+      <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+    </form>
+  </div>
+</ng-template>

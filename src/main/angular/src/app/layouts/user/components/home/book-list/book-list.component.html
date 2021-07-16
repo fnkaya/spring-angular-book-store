@@ -1,0 +1,46 @@
+    <div class="row">
+      <div class="col-4 mb-4" *ngFor="let book of books">
+        <div class="card h-100 shadow">
+          <a routerLink="/book/{{book.id}}">
+            <img class="card-img-top" height="300" [src]="book.imageUrl"  alt="Book Image">
+          </a>
+          <div class="card-body">
+            <h3 class="card-title">
+              <a class="text-dark" routerLink="/book/{{book.id}}">
+                {{book.name}}
+              </a>
+            </h3>
+            <h4><strong>{{book.unitPrice | currency: "₺"}}</strong></h4>
+            <h5 class="card-text text-truncate">{{book.description}}</h5>
+          </div>
+          <div class="card-footer text-center">
+            <div class="btn-group">
+              <button class="btn btn-outline-secondary float-left" routerLink="/book/{{book.id}}">
+                Details
+              </button>
+              <button class="btn btn-primary float-right" (click)="addToCart(book)">
+                Add to Cart
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <mat-card *ngIf="books?.length == 0" class="font-italic text-center w-100 bg-light">
+        No Books Found
+      </mat-card>
+    </div>
+
+    <div *ngIf="totalPages > 1">
+      <div class="col-md-9 mt-3">
+        <ngb-pagination class="d-flex justify-content-start" [(page)]="currentPage" [pageSize]="pageSize" [collectionSize]="totalRecords"
+                        maxSize="10" boundaryLinks="true" (pageChange)="listBooks()">
+          <ng-template ngbPaginationPrevious>Prev</ng-template>
+          <ng-template ngbPaginationNext>Next</ng-template>
+          <ng-template ngbPaginationFirst>First</ng-template>
+          <ng-template ngbPaginationLast>Last</ng-template>
+        </ngb-pagination>
+      </div>
+    </div>
+
+
+

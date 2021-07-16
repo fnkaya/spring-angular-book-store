@@ -1,0 +1,83 @@
+<div class="container w-100">
+
+  <div class="row">
+      <div class="col-9">
+          <table class="table shadow">
+            <thead class="bg-dark text-light">
+            <tr>
+              <td colspan="2" class="w-75 text-center">Product</td>
+              <td class="w-25">Price</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let cartItem of cartItems">
+              <td class="text-center">
+                <img [src]="cartItem.imageUrl" class="img-responsive" width="75" height="100">
+              </td>
+              <td>
+                <p>{{cartItem.name}}</p>
+                <p>{{cartItem.unitPrice | currency: '₺'}}</p>
+              </td>
+              <td>
+                <div class="row">
+                    <div class="col-3">
+                    <button class="btn btn-primary btn-sm float-left" (click)="decrementQuantity(cartItem)">
+                      <i class="fas fa-minus"></i>
+                    </button>
+                  </div>
+                  <div class="col-3 text-center">
+                    {{cartItem.quantity}}
+                  </div>
+                  <div class="col-3">
+                    <button class="btn btn-primary btn-sm float-right" (click)="incrementQuantity(cartItem)">
+                      <i class="fas fa-plus"></i>
+                    </button>
+                  </div>
+                  <div class="col-3">
+                      <span class="text-danger pointer" (click)="removeCartItem(cartItem)">
+                        <i class="fas fa-trash-alt"></i>
+                      </span>
+                  </div>
+                  <div class="col-12 mt-3">
+                    <span>Subtotal: {{cartItem.quantity * cartItem.unitPrice | currency: '₺'}}</span>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr *ngIf="cartItems.length == 0">
+              <td class="font-italic text-center text-muted" colspan="3">
+                Your cart is empty
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        <button class="btn btn-dark text-white shadow" routerLink="/">
+          <i class="fas fa-arrow-left mr-2"></i>
+          <span>Go Back</span>
+        </button>
+      </div>
+      <div class="col-3">
+        <ul class="list-group shadow">
+          <li class="list-group-item text-center text-light bg-danger">
+                TOTAL <i class="fas fa-shopping-cart"></i>
+          </li>
+          <li class="list-group-item" >
+            <p>Total Quantity: <strong>{{totalQuantity}}</strong></p>
+          </li>
+          <li class="list-group-item">
+            <p >Total Price: <strong>{{totalPrice | currency: '₺'}}</strong></p>
+          </li>
+          <li class="list-group-item">
+            <p *ngIf="totalPrice >= 50; then thenBlock; else elseBlock;"></p>
+            <ng-template #thenBlock>Shipping: <strong>FREE</strong></ng-template>
+            <ng-template #elseBlock>Shipping: <strong>{{shipping | currency: '₺'}}</strong></ng-template>
+          </li>
+        </ul>
+        <button *ngIf="cartItems.length > 0" class="btn btn-success mt-3 w-100 shadow" routerLink="/checkout" >
+          <span class="font-weight-bold">Make Payment</span>
+          <i class="fas fa-money-check ml-2"></i>
+        </button>
+      </div>
+    </div>
+
+</div>

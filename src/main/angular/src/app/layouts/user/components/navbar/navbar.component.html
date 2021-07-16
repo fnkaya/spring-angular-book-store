@@ -1,0 +1,49 @@
+<div class="d-flex flex-column flex-md-row align-items-center py-2 px-5 bg-light shadow">
+  <a class="navbar-brand font-weight-bold text-dark" routerLink="/" >{{title}}</a>
+
+  <nav class="navbar">
+    <a class="nav-link p-2 text-dark" routerLink="/">About</a>
+    <a class="nav-link p-2 text-dark" routerLink="/">Contact</a>
+  </nav>
+
+
+
+  <div class="w-25 m-auto  input-group">
+    <input #searchInput class="form-control border-0" type="text" placeholder="Search Book" aria-label="Search" (keyup.enter)="searchBooks(searchInput.value)">
+    <div class="input-group-append">
+        <span class="input-group-text border-0" (click)="searchBooks(searchInput.value)">
+          <i class="fas fa-search text-grey" aria-hidden="true"></i>
+        </span>
+    </div>
+  </div>
+
+
+
+    <div *ngIf="userInfos['admin']; then adminTemplate; else userTemplate"></div>
+    <ng-template #adminTemplate >
+      <a mat-button routerLink="/admin/book" target="_blank" class="btn">
+        Admin Page<i class="fas fa-user-cog ml-2"></i>
+      </a>
+    </ng-template>
+    <ng-template #userTemplate >
+      <app-cart-status></app-cart-status>
+    </ng-template>
+
+
+  <div *ngIf="token == null; then loginTemplate; else logoutTemplate;"></div>
+  <ng-template #loginTemplate><button mat-button routerLink="/login">Login</button></ng-template>
+  <ng-template #logoutTemplate><button mat-button [matMenuTriggerFor]="menu" class="material-icons">account_circle</button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item routerLink="/profile">Profile</button>
+      <button mat-menu-item (click)="logout()">Logout</button>
+    </mat-menu>
+  </ng-template>
+
+</div>
+
+
+
+
+
+
+

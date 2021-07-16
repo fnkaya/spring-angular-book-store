@@ -1,0 +1,47 @@
+<mat-accordion>
+
+<mat-expansion-panel *ngFor="let order of orders" class="shadow my-2 bg-light">
+  <mat-expansion-panel-header class="p-5">
+    <mat-panel-title>
+      <div class="row w-100">
+        <div class="col-4">Order ID: {{order['id']}}</div>
+        <div class="col-4">{{order['totalPrice'] | currency: '₺'}}</div>
+        <div class="col-4">{{order['date'] | date: 'shortDate'}}</div>
+      </div>
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+
+  <mat-divider></mat-divider>
+
+  <div class="row mt-3">
+    <div class="col-4"  *ngFor="let item of order['cartItems']">
+      <div class="row my-3">
+        <div class="col-3"><img [src]="item.imageUrl" height="100" width="50"></div>
+        <div class="col-9">
+          <div class="text-muted">{{item['name']}}</div>
+          <div class="text-muted">Quantity: {{item['quantity']}}</div>
+          <div class="text-muted">Price: {{item['unitPrice'] | currency: '₺'}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <mat-action-row>
+
+    <button mat-button routerLink="{{order['id']}}">Order Detail</button>
+  </mat-action-row>
+</mat-expansion-panel>
+
+</mat-accordion>
+
+<mat-card *ngIf="orders.length == 0" class="text-center bg-light font-italic">You have no any order</mat-card>
+
+<mat-paginator  class="shadow mt-3 bg-secondary text-light"
+                [length]="page.totalElements"
+                [pageSize]="page.size"
+                [showFirstLastButtons]="true"
+                [hidePageSize]="true"
+
+                (page)="setPage($event)">
+</mat-paginator>
+

@@ -1,0 +1,76 @@
+<!--<div class="container mt-5">-->
+<!--  <div class="col-md-6 offset-3">-->
+<!--    <form  [formGroup]="loginForm" (ngSubmit)="login()">-->
+<!--      <div *ngIf="error" class="alert alert-danger">{{error}}</div>-->
+<!--      <div class="form-group">-->
+<!--        <label>Username</label>-->
+<!--        <input type="text" formControlName="username" class="form-control shadow" [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />-->
+<!--        <div *ngIf="submitted && f.username.errors" class="invalid-feedback">-->
+<!--          <div *ngIf="f.username.errors.required">Username is required</div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="form-group">-->
+<!--        <label>Password</label>-->
+<!--        <input type="password" formControlName="password" class="form-control shadow" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />-->
+<!--        <div *ngIf="submitted && f.password.errors" class="invalid-feedback">-->
+<!--          <div *ngIf="f.password.errors.required">Password is required</div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="form-group">-->
+<!--        <button [disabled]="loading" type="submit" class="btn btn-block btn-danger shadow">-->
+<!--          Login<img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />-->
+<!--        </button>-->
+<!--        <a [routerLink]="['/register']" class="float-right mt-3 btn">Register</a>-->
+<!--      </div>-->
+<!--    </form>-->
+<!--  </div>-->
+<!--</div>-->
+
+<div class="center-content mt-5">
+  <mat-card class="example-card shadow bg-light">
+    <mat-card-header>
+      <div class="w-100">
+        <mat-card-title>Book Store</mat-card-title>
+        <mat-card-subtitle>Login</mat-card-subtitle>
+      </div>
+    </mat-card-header>
+
+    <mat-card-content>
+
+          <form [formGroup]="loginForm" (ngSubmit)="login()">
+            <div *ngIf="err" class="alert alert-danger mt-3">Invalid Username or Password</div>
+
+
+            <mat-form-field appearance="outline" class="example-full-width">
+              <mat-label>Username</mat-label>
+              <input matInput type="text" formControlName="username" placeholder="Username"
+                     [ngClass]="{ 'is-invalid': submitted && f.username.errors }">
+              <mat-icon matSuffix>account_circle</mat-icon>
+<!--              <div *ngIf="submitted && f.username.errors" class="invalid-feedback">-->
+                <mat-error *ngIf="submitted && f.username.errors">Username is required</mat-error>
+<!--              </div>-->
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="example-full-width">
+              <mat-label>Password</mat-label>
+              <input matInput type="password" formControlName="password" placeholder="Password"
+                     [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
+              <mat-icon matSuffix>vpn_key</mat-icon>
+<!--              <div *ngIf="submitted && f.password.errors" class="invalid-feedback">-->
+                <mat-error *ngIf="submitted && f.password.errors">Password is required</mat-error>
+<!--              </div>-->
+            </mat-form-field>
+            <a [routerLink]="['/register']" class="float-right mt-3 btn text-danger">Register</a>
+          <button mat-stroked-button color="primary" type="submit" [disabled]="loading"
+                  class="example-full-width">
+            Login<img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+          </button>
+          </form>
+
+
+    </mat-card-content>
+
+  </mat-card>
+</div>
+
+
